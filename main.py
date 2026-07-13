@@ -3,6 +3,7 @@ import os
 
 load_dotenv()
 from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 
 
@@ -38,7 +39,9 @@ def main():
     """
 
     summary_prompt = PromptTemplate(input_variables=["information"], template=summary_template)
-    llm= ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    # llm= ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm= ChatOpenAI(model="gpt-5", temperature=0)
+    # llm = ChatOllama(model="gemma3:270m", temperature=0)
     chain = summary_prompt | llm
     response = chain.invoke(input={"information": information})
     print(response.content)
